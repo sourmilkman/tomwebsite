@@ -7,6 +7,25 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /*
+   * SCROLL ANIMATION LOGIC:
+   *
+   * There is an imaginary trigger line at 80% down the viewport.
+   * - When an element's top crosses ABOVE that line (scrolling down), it animates IN.
+   * - Once above the line, it stays visible — even if you keep scrolling down.
+   * - If you scroll back UP and the element's top drops BELOW that line, it animates OUT.
+   *
+   * This is achieved with:
+   *   toggleActions: 'play none none reverse'
+   *   start: 'top 80%'
+   *   (no end — the trigger is a single threshold)
+   *
+   * 'play none none reverse' means:
+   *   onEnter: play | onLeave: none | onEnterBack: none | onLeaveBack: reverse
+   */
+
+  var TRIGGER_POINT = 'top 80%';
+
   // ==========================================
   // NAVIGATION
   // ==========================================
@@ -16,10 +35,9 @@
 
   window.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () { nav.classList.add('visible'); }, 300);
-    initHeroAnimation();
     initTextSplitting();
+    initHeroAnimation();
     initScrollAnimations();
-    initBrushstrokes();
   });
 
   hamburger.addEventListener('click', function () {
@@ -60,6 +78,42 @@
       var subject = encodeURIComponent('Website Enquiry from ' + name);
       var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
       window.location.href = 'mailto:hello@tommulliner.com?subject=' + subject + '&body=' + body;
+    });
+  }
+
+  // ==========================================
+  // TEXT SPLITTING (must run before animations)
+  // ==========================================
+  function initTextSplitting() {
+    // Split hero h1 into individual characters
+    var heroTitle = document.querySelector('.hero h1.split-text');
+    if (heroTitle) {
+      var text = heroTitle.textContent;
+      heroTitle.innerHTML = '';
+      for (var i = 0; i < text.length; i++) {
+        var span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+        heroTitle.appendChild(span);
+      }
+    }
+
+    // Split reveal-text headings into words
+    document.querySelectorAll('.reveal-text').forEach(function (el) {
+      var words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = '';
+      words.forEach(function (word, i) {
+        var wordSpan = document.createElement('span');
+        wordSpan.className = 'word';
+        var inner = document.createElement('span');
+        inner.className = 'word-inner';
+        inner.textContent = word;
+        wordSpan.appendChild(inner);
+        el.appendChild(wordSpan);
+        if (i < words.length - 1) {
+          el.appendChild(document.createTextNode('\u00A0'));
+        }
+      });
     });
   }
 
@@ -107,55 +161,10 @@
       duration: 0.8,
       ease: 'power2.out'
     }, '-=0.2');
-
-    // Hero brushstrokes draw in
-    tl.to('.hero .brush-path', {
-      strokeDashoffset: 0,
-      duration: 2,
-      ease: 'power1.inOut'
-    }, '-=1');
   }
 
   // ==========================================
-  // TEXT SPLITTING
-  // ==========================================
-  function initTextSplitting() {
-    // Split hero h1 into individual characters
-    var heroTitle = document.querySelector('.hero h1.split-text');
-    if (heroTitle) {
-      var text = heroTitle.textContent;
-      heroTitle.innerHTML = '';
-      for (var i = 0; i < text.length; i++) {
-        var span = document.createElement('span');
-        span.className = 'char';
-        span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
-        heroTitle.appendChild(span);
-      }
-    }
-
-    // Split reveal-text headings into words
-    document.querySelectorAll('.reveal-text').forEach(function (el) {
-      var words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = '';
-      words.forEach(function (word, i) {
-        var wordSpan = document.createElement('span');
-        wordSpan.className = 'word';
-        var inner = document.createElement('span');
-        inner.className = 'word-inner';
-        inner.textContent = word;
-        wordSpan.appendChild(inner);
-        el.appendChild(wordSpan);
-        // Add space between words
-        if (i < words.length - 1) {
-          var space = document.createTextNode('\u00A0');
-          el.appendChild(space);
-        }
-      });
-    });
-  }
-
-  // ==========================================
-  // SCROLL ANIMATIONS — per-element, reversible
+  // SCROLL ANIMATIONS
   // ==========================================
   function initScrollAnimations() {
 
@@ -171,15 +180,14 @@
           ease: 'power3.out',
           scrollTrigger: {
             trigger: el,
-            start: 'top 85%',
-            end: 'top 40%',
-            toggleActions: 'play reverse play reverse'
+            start: TRIGGER_POINT,
+            toggleActions: 'play none none reverse'
           }
         }
       );
     });
 
-    // --- Fade Up (paragraphs, subtitles, etc.) ---
+    // --- Fade Up (paragraphs, subtitles, notes, etc.) ---
     document.querySelectorAll('[data-anim="fade-up"]').forEach(function (el) {
       gsap.fromTo(el,
         { opacity: 0, y: 30 },
@@ -190,23 +198,22 @@
           ease: 'power2.out',
           scrollTrigger: {
             trigger: el,
-            start: 'top 88%',
-            end: 'top 50%',
-            toggleActions: 'play reverse play reverse'
+            start: TRIGGER_POINT,
+            toggleActions: 'play none none reverse'
           }
         }
       );
     });
 
     // --- Fade Up Stagger (cards, features, form fields) ---
-    // Group stagger items by parent section
+    // Group by parent section so they stagger together
     var staggerGroups = {};
     document.querySelectorAll('[data-anim="fade-up-stagger"]').forEach(function (el) {
-      var section = el.closest('section') || el.closest('.contact-form');
-      if (!section) return;
-      var id = section.id || section.className;
-      if (!staggerGroups[id]) staggerGroups[id] = [];
-      staggerGroups[id].push(el);
+      var parent = el.closest('section') || el.closest('.contact-form');
+      if (!parent) return;
+      var key = parent.id || parent.className;
+      if (!staggerGroups[key]) staggerGroups[key] = [];
+      staggerGroups[key].push(el);
     });
 
     Object.keys(staggerGroups).forEach(function (key) {
@@ -221,17 +228,15 @@
           ease: 'power2.out',
           scrollTrigger: {
             trigger: items[0],
-            start: 'top 88%',
-            end: 'top 45%',
-            toggleActions: 'play reverse play reverse'
+            start: TRIGGER_POINT,
+            toggleActions: 'play none none reverse'
           }
         }
       );
     });
 
-    // --- Fade + Scale (about image with parallax zoom) ---
+    // --- Fade + Scale (about image) ---
     document.querySelectorAll('[data-anim="fade-scale"]').forEach(function (el) {
-      // Fade the container in
       gsap.fromTo(el,
         { opacity: 0, scale: 0.92 },
         {
@@ -241,30 +246,32 @@
           ease: 'power2.out',
           scrollTrigger: {
             trigger: el,
-            start: 'top 85%',
-            end: 'top 30%',
-            toggleActions: 'play reverse play reverse'
+            start: TRIGGER_POINT,
+            toggleActions: 'play none none reverse'
           }
         }
       );
 
-      // Parallax zoom on the inner image
+      // Parallax zoom on the inner image (scrub-based, independent)
       var img = el.querySelector('img');
       if (img) {
-        gsap.to(img, {
-          scale: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1
+        gsap.fromTo(img,
+          { scale: 1.15 },
+          {
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1
+            }
           }
-        });
+        );
       }
     });
 
-    // --- Scroll indicator fades out as you scroll down ---
+    // --- Scroll indicator fades out as you scroll past hero ---
     gsap.to('.scroll-indicator', {
       opacity: 0,
       y: -10,
@@ -274,38 +281,6 @@
         end: 'bottom 60%',
         scrub: true
       }
-    });
-  }
-
-  // ==========================================
-  // BRUSHSTROKE ANIMATIONS — draw on scroll
-  // ==========================================
-  function initBrushstrokes() {
-    // Animate all brush-path elements in the page (except hero ones, which animate on load)
-    document.querySelectorAll('.brush-divider .brush-path, .section-brush .brush-path, .atelier-brush-left .brush-path, .atelier-brush-right .brush-path').forEach(function (path) {
-      // Calculate the actual length for this path
-      var length = path.getTotalLength();
-      path.style.strokeDasharray = length;
-      path.style.strokeDashoffset = length;
-
-      gsap.to(path, {
-        strokeDashoffset: 0,
-        duration: 1.5,
-        ease: 'power1.inOut',
-        scrollTrigger: {
-          trigger: path.closest('.brush-divider') || path.closest('section') || path.closest('.container'),
-          start: 'top 85%',
-          end: 'top 30%',
-          scrub: 1
-        }
-      });
-    });
-
-    // Hero brushstrokes — set up their dasharray properly
-    document.querySelectorAll('.hero .brush-path').forEach(function (path) {
-      var length = path.getTotalLength();
-      path.style.strokeDasharray = length;
-      path.style.strokeDashoffset = length;
     });
   }
 
