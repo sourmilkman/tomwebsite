@@ -137,13 +137,6 @@
       ease: 'power3.out'
     }, '-=0.4');
 
-    tl.to('.hero-credential', {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      ease: 'power2.out'
-    }, '-=0.2');
-
     tl.to('.hero-tagline', {
       opacity: 1,
       y: 0,
