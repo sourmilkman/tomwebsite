@@ -10,18 +10,22 @@
   /*
    * ANIMATION LOGIC:
    *
-   * Trigger line = 80% down the viewport.
+   * Each element's animation is SCRUBBED to scroll position between
+   * two points: start (top 80%) and end (top 50%).
    *
-   * - Scrolling DOWN: element's top crosses above the 80% line → animate IN
-   * - Continue scrolling DOWN: element stays visible (nothing happens)
-   * - Scrolling UP: element's top drops back below the 80% line → animate OUT (reverse)
+   * - Below start: element is fully hidden (progress 0)
+   * - Between start and end: animation is tied 1:1 to scroll
+   * - Above end: element is fully visible (progress 1), stays put
+   * - Scroll back up through end → start: animation reverses at
+   *   EXACTLY the same rate it played forward
    *
-   * Implementation: we create a GSAP timeline for each animated element,
-   * initially paused. ScrollTrigger's onEnter plays it, onLeaveBack reverses it.
-   * onLeave and onEnterBack do nothing — so elements are stable once above the line.
+   * scrub: 0.6 adds a tiny bit of smoothing so it feels elegant
+   * rather than jerky, but it tracks scroll position faithfully.
    */
 
-  var TRIGGER_POINT = 'top 80%';
+  var ANIM_START = 'top 80%';
+  var ANIM_END = 'top 50%';
+  var SCRUB_SMOOTHING = 0.6;
 
   // ==========================================
   // NAVIGATION
@@ -82,7 +86,6 @@
   // TEXT SPLITTING (must run before animations)
   // ==========================================
   function initTextSplitting() {
-    // Split hero h1 into individual characters
     var heroTitle = document.querySelector('.hero h1.split-text');
     if (heroTitle) {
       var text = heroTitle.textContent;
@@ -95,7 +98,6 @@
       }
     }
 
-    // Split reveal-text headings into words
     document.querySelectorAll('.reveal-text').forEach(function (el) {
       var words = el.textContent.trim().split(/\s+/);
       el.innerHTML = '';
@@ -115,7 +117,7 @@
   }
 
   // ==========================================
-  // HERO ENTRANCE ANIMATION (on page load)
+  // HERO ENTRANCE ANIMATION (on page load, not scroll-based)
   // ==========================================
   function initHeroAnimation() {
     var tl = gsap.timeline({ delay: 0.5 });
@@ -135,7 +137,6 @@
       ease: 'power3.out'
     }, '-=0.4');
 
-    // PRMS credential
     tl.to('.hero-credential', {
       opacity: 1,
       y: 0,
@@ -164,58 +165,50 @@
   }
 
   // ==========================================
-  // HELPER: create a scroll-triggered animation
-  // ==========================================
-  function createScrollAnim(trigger, tween) {
-    // tween is a paused GSAP timeline/tween
-    ScrollTrigger.create({
-      trigger: trigger,
-      start: TRIGGER_POINT,
-      onEnter: function () { tween.play(); },
-      onLeaveBack: function () { tween.reverse(); }
-    });
-  }
-
-  // ==========================================
-  // SCROLL ANIMATIONS
+  // SCROLL ANIMATIONS — all scrub-based
   // ==========================================
   function initScrollAnimations() {
 
     // --- Reveal Text (word by word slide up) ---
     document.querySelectorAll('[data-anim="reveal-text"]').forEach(function (el) {
       var words = el.querySelectorAll('.word-inner');
-      var tween = gsap.fromTo(words,
+      gsap.fromTo(words,
         { y: '105%' },
         {
           y: '0%',
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power3.out',
-          paused: true
+          stagger: 0.06,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: ANIM_START,
+            end: ANIM_END,
+            scrub: SCRUB_SMOOTHING
+          }
         }
       );
-      createScrollAnim(el, tween);
     });
 
     // --- Fade Up (paragraphs, subtitles, notes) ---
     document.querySelectorAll('[data-anim="fade-up"]').forEach(function (el) {
-      var tween = gsap.fromTo(el,
+      gsap.fromTo(el,
         { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
           ease: 'power2.out',
-          paused: true
+          scrollTrigger: {
+            trigger: el,
+            start: ANIM_START,
+            end: ANIM_END,
+            scrub: SCRUB_SMOOTHING
+          }
         }
       );
-      createScrollAnim(el, tween);
     });
 
     // --- Fade Up Stagger (cards, features, form fields) ---
     var staggerGroups = {};
     document.querySelectorAll('[data-anim="fade-up-stagger"]').forEach(function (el) {
-      // Group by the nearest parent section
       var section = el.closest('section') || el.closest('.highlights-section') || el.closest('.contact-form');
       if (!section) return;
       var key = section.id || section.className || Math.random();
@@ -225,35 +218,41 @@
 
     Object.keys(staggerGroups).forEach(function (key) {
       var items = staggerGroups[key];
-      var tween = gsap.fromTo(items,
+      gsap.fromTo(items,
         { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          stagger: 0.12,
+          stagger: 0.08,
           ease: 'power2.out',
-          paused: true
+          scrollTrigger: {
+            trigger: items[0],
+            start: ANIM_START,
+            end: ANIM_END,
+            scrub: SCRUB_SMOOTHING
+          }
         }
       );
-      createScrollAnim(items[0], tween);
     });
 
     // --- Fade + Scale (about image) ---
     document.querySelectorAll('[data-anim="fade-scale"]').forEach(function (el) {
-      var tween = gsap.fromTo(el,
+      gsap.fromTo(el,
         { opacity: 0, scale: 0.92 },
         {
           opacity: 1,
           scale: 1,
-          duration: 1,
           ease: 'power2.out',
-          paused: true
+          scrollTrigger: {
+            trigger: el,
+            start: ANIM_START,
+            end: ANIM_END,
+            scrub: SCRUB_SMOOTHING
+          }
         }
       );
-      createScrollAnim(el, tween);
 
-      // Parallax zoom on inner image (independent scrub)
+      // Parallax zoom on inner image (longer scrub range)
       var img = el.querySelector('img');
       if (img) {
         gsap.fromTo(img,
@@ -272,7 +271,7 @@
       }
     });
 
-    // --- Scroll indicator fades out as you leave hero ---
+    // --- Scroll indicator fades out ---
     gsap.to('.scroll-indicator', {
       opacity: 0,
       y: -10,
