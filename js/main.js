@@ -8,20 +8,17 @@
   gsap.registerPlugin(ScrollTrigger);
 
   /*
-   * SCROLL ANIMATION LOGIC:
+   * ANIMATION LOGIC:
    *
-   * There is an imaginary trigger line at 80% down the viewport.
-   * - When an element's top crosses ABOVE that line (scrolling down), it animates IN.
-   * - Once above the line, it stays visible — even if you keep scrolling down.
-   * - If you scroll back UP and the element's top drops BELOW that line, it animates OUT.
+   * Trigger line = 80% down the viewport.
    *
-   * This is achieved with:
-   *   toggleActions: 'play none none reverse'
-   *   start: 'top 80%'
-   *   (no end — the trigger is a single threshold)
+   * - Scrolling DOWN: element's top crosses above the 80% line → animate IN
+   * - Continue scrolling DOWN: element stays visible (nothing happens)
+   * - Scrolling UP: element's top drops back below the 80% line → animate OUT (reverse)
    *
-   * 'play none none reverse' means:
-   *   onEnter: play | onLeave: none | onEnterBack: none | onLeaveBack: reverse
+   * Implementation: we create a GSAP timeline for each animated element,
+   * initially paused. ScrollTrigger's onEnter plays it, onLeaveBack reverses it.
+   * onLeave and onEnterBack do nothing — so elements are stable once above the line.
    */
 
   var TRIGGER_POINT = 'top 80%';
@@ -123,7 +120,6 @@
   function initHeroAnimation() {
     var tl = gsap.timeline({ delay: 0.5 });
 
-    // Monogram scales and fades in
     tl.to('.hero-monogram', {
       opacity: 1,
       scale: 1,
@@ -131,7 +127,6 @@
       ease: 'power3.out'
     });
 
-    // Title characters cascade in
     tl.to('.hero h1 .char', {
       y: 0,
       opacity: 1,
@@ -140,7 +135,14 @@
       ease: 'power3.out'
     }, '-=0.4');
 
-    // Tagline fades up
+    // PRMS credential
+    tl.to('.hero-credential', {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: 'power2.out'
+    }, '-=0.2');
+
     tl.to('.hero-tagline', {
       opacity: 1,
       y: 0,
@@ -148,19 +150,30 @@
       ease: 'power2.out'
     }, '-=0.3');
 
-    // Divider line draws in
     tl.to('.hero-tagline .divider', {
       scaleX: 1,
       duration: 0.6,
       ease: 'power2.inOut'
     }, '-=0.5');
 
-    // Scroll indicator appears
     tl.to('.scroll-indicator', {
       opacity: 1,
       duration: 0.8,
       ease: 'power2.out'
     }, '-=0.2');
+  }
+
+  // ==========================================
+  // HELPER: create a scroll-triggered animation
+  // ==========================================
+  function createScrollAnim(trigger, tween) {
+    // tween is a paused GSAP timeline/tween
+    ScrollTrigger.create({
+      trigger: trigger,
+      start: TRIGGER_POINT,
+      onEnter: function () { tween.play(); },
+      onLeaveBack: function () { tween.reverse(); }
+    });
   }
 
   // ==========================================
@@ -171,88 +184,76 @@
     // --- Reveal Text (word by word slide up) ---
     document.querySelectorAll('[data-anim="reveal-text"]').forEach(function (el) {
       var words = el.querySelectorAll('.word-inner');
-      gsap.fromTo(words,
+      var tween = gsap.fromTo(words,
         { y: '105%' },
         {
           y: '0%',
           duration: 0.8,
           stagger: 0.1,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: TRIGGER_POINT,
-            toggleActions: 'play none none reverse'
-          }
+          paused: true
         }
       );
+      createScrollAnim(el, tween);
     });
 
-    // --- Fade Up (paragraphs, subtitles, notes, etc.) ---
+    // --- Fade Up (paragraphs, subtitles, notes) ---
     document.querySelectorAll('[data-anim="fade-up"]').forEach(function (el) {
-      gsap.fromTo(el,
+      var tween = gsap.fromTo(el,
         { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
           duration: 0.8,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: TRIGGER_POINT,
-            toggleActions: 'play none none reverse'
-          }
+          paused: true
         }
       );
+      createScrollAnim(el, tween);
     });
 
     // --- Fade Up Stagger (cards, features, form fields) ---
-    // Group by parent section so they stagger together
     var staggerGroups = {};
     document.querySelectorAll('[data-anim="fade-up-stagger"]').forEach(function (el) {
-      var parent = el.closest('section') || el.closest('.contact-form');
-      if (!parent) return;
-      var key = parent.id || parent.className;
+      // Group by the nearest parent section
+      var section = el.closest('section') || el.closest('.highlights-section') || el.closest('.contact-form');
+      if (!section) return;
+      var key = section.id || section.className || Math.random();
       if (!staggerGroups[key]) staggerGroups[key] = [];
       staggerGroups[key].push(el);
     });
 
     Object.keys(staggerGroups).forEach(function (key) {
       var items = staggerGroups[key];
-      gsap.fromTo(items,
+      var tween = gsap.fromTo(items,
         { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
           duration: 0.7,
-          stagger: 0.15,
+          stagger: 0.12,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: items[0],
-            start: TRIGGER_POINT,
-            toggleActions: 'play none none reverse'
-          }
+          paused: true
         }
       );
+      createScrollAnim(items[0], tween);
     });
 
     // --- Fade + Scale (about image) ---
     document.querySelectorAll('[data-anim="fade-scale"]').forEach(function (el) {
-      gsap.fromTo(el,
+      var tween = gsap.fromTo(el,
         { opacity: 0, scale: 0.92 },
         {
           opacity: 1,
           scale: 1,
           duration: 1,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: TRIGGER_POINT,
-            toggleActions: 'play none none reverse'
-          }
+          paused: true
         }
       );
+      createScrollAnim(el, tween);
 
-      // Parallax zoom on the inner image (scrub-based, independent)
+      // Parallax zoom on inner image (independent scrub)
       var img = el.querySelector('img');
       if (img) {
         gsap.fromTo(img,
@@ -271,7 +272,7 @@
       }
     });
 
-    // --- Scroll indicator fades out as you scroll past hero ---
+    // --- Scroll indicator fades out as you leave hero ---
     gsap.to('.scroll-indicator', {
       opacity: 0,
       y: -10,

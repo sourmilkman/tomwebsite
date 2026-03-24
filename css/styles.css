@@ -290,6 +290,16 @@ section {
   opacity: 0;
 }
 
+.hero-credential {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+  opacity: 0;
+}
+
 .hero-tagline .divider {
   display: inline-block;
   width: 40px;
@@ -299,6 +309,12 @@ section {
   margin: 0 1rem;
   transform: scaleX(0);
   transform-origin: left;
+}
+
+.nav-prms {
+  font-size: 0.7em;
+  letter-spacing: 0.1em;
+  color: var(--accent);
 }
 
 /* Scroll indicator */
@@ -422,7 +438,189 @@ section {
 }
 
 /* ============================================
+   CREDENTIALS SECTION
+   ============================================ */
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.credential-card {
+  text-align: center;
+  padding: var(--space-md) var(--space-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  transition: border-color var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.credential-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.credential-icon {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+  letter-spacing: 0.05em;
+}
+
+.credential-card h4 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.credential-card p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 auto;
+}
+
+/* ============================================
+   WHAT TO EXPECT SECTION
+   ============================================ */
+.expect-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.expect-item {
+  padding: var(--space-md);
+  border-left: 2px solid var(--accent);
+  transition: background var(--transition-smooth);
+}
+
+.expect-item:hover {
+  background: var(--bg-secondary);
+}
+
+.expect-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--accent);
+  opacity: 0.4;
+  display: block;
+  margin-bottom: var(--space-xs);
+  line-height: 1;
+}
+
+.expect-item h4 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.expect-item p {
+  font-size: 0.9rem;
+}
+
+/* ============================================
    GALLERY PREVIEW (Homepage)
+   ============================================ */
+.gallery-intro {
+  margin-bottom: var(--space-sm);
+}
+
+/* ============================================
+   HIGHLIGHTS GRID
+   ============================================ */
+.highlights-section {
+  margin-top: var(--space-2xl);
+}
+
+.highlights-section h3 {
+  margin-bottom: var(--space-md);
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.highlight-card {
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--bg-card);
+  transition: transform var(--transition-smooth);
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px);
+}
+
+.highlight-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.highlight-card:hover img {
+  transform: scale(1.05);
+}
+
+.highlight-info {
+  padding: var(--space-sm);
+}
+
+.highlight-info h4 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  margin-bottom: 0.15rem;
+}
+
+.highlight-info p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.testimonial-card {
+  padding: var(--space-md);
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  transition: border-color var(--transition-smooth);
+}
+
+.testimonial-card:hover {
+  border-color: var(--border-light);
+}
+
+.testimonial-card p {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+
+.testimonial-card cite {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-style: normal;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+}
+
+/* ============================================
+   GALLERY PREVIEW CARDS
    ============================================ */
 .gallery-preview-grid {
   display: grid;
@@ -836,11 +1034,27 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .credentials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .gallery-preview-grid {
     grid-template-columns: 1fr;
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .expect-grid {
+    grid-template-columns: 1fr;
   }
 
   .contact-grid {
