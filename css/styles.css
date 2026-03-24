@@ -15,8 +15,8 @@
   --border-subtle: rgba(240, 236, 228, 0.08);
   --border-light: rgba(240, 236, 228, 0.15);
 
-  --font-heading: 'Cormorant Garamond', 'Georgia', serif;
-  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-heading: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --font-body: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -75,13 +75,13 @@ a:hover {
 /* --- Typography --- */
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.2;
   color: var(--text-primary);
 }
 
-h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
-h2 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.02em; }
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 200; }
+h2 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.02em; font-weight: 300; }
 h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
 h4 { font-size: 1.1rem; }
 
@@ -950,6 +950,28 @@ section {
 
 .contact-info p {
   margin-bottom: var(--space-sm);
+}
+
+.social-links {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.social-links a {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.social-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ============================================

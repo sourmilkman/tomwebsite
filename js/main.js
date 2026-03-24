@@ -78,7 +78,7 @@
       var message = document.getElementById('message').value;
       var subject = encodeURIComponent('Website Enquiry from ' + name);
       var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
-      window.location.href = 'mailto:hello@tommulliner.com?subject=' + subject + '&body=' + body;
+      window.location.href = 'mailto:info@tommulliner.com?subject=' + subject + '&body=' + body;
     });
   }
 
