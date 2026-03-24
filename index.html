@@ -341,9 +341,15 @@
     </div>
   </footer>
 
+  <!-- Page transition overlay -->
+  <div class="page-transition" id="pageTransition"></div>
+
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Page transition script (before main.js so it catches link clicks) -->
+  <script src="js/transition.js"></script>
 
   <!-- Main JS -->
   <script src="js/main.js"></script>

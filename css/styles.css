@@ -1032,6 +1032,30 @@ section {
 }
 
 /* ============================================
+   PAGE TRANSITIONS
+   ============================================ */
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 1;
+}
+
+/* While exiting, block interaction */
+body.is-exiting {
+  pointer-events: none;
+}
+
+body.is-exiting .nav {
+  pointer-events: none;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 900px) {
