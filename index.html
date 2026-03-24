@@ -56,51 +56,79 @@
 
   <!-- 1. Hero -->
   <section class="hero" id="hero">
-    <div class="hero-monogram">
+    <!-- Brushstroke decoration -->
+    <svg class="brushstroke hero-brush-1" viewBox="0 0 400 60" preserveAspectRatio="none">
+      <path class="brush-path" d="M0,30 C50,10 100,50 150,25 C200,0 250,55 300,20 C350,-5 380,40 400,30" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+    <svg class="brushstroke hero-brush-2" viewBox="0 0 300 40" preserveAspectRatio="none">
+      <path class="brush-path" d="M0,20 C40,5 80,35 120,15 C160,-5 200,30 240,10 C270,0 290,25 300,20" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+    </svg>
+
+    <div class="hero-monogram" data-anim="hero">
       <span>M</span>
     </div>
-    <h1>Tom Mulliner</h1>
-    <p class="hero-tagline">
+    <h1 class="split-text" data-anim="hero">Tom Mulliner</h1>
+    <p class="hero-tagline" data-anim="hero">
       Fine Art <span class="divider"></span> Graphic Design
     </p>
+    <div class="scroll-indicator" data-anim="hero">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
   </section>
 
   <!-- 2. About Me -->
-  <section class="animate-section" id="about">
+  <section id="about">
     <div class="container">
-      <span class="section-subtitle">About the Artist</span>
+      <!-- Brushstroke accent -->
+      <svg class="brushstroke section-brush section-brush-right" viewBox="0 0 200 400" preserveAspectRatio="none">
+        <path class="brush-path" d="M100,0 C120,50 80,100 110,150 C140,200 70,250 100,300 C130,350 90,380 100,400" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.15"/>
+      </svg>
+
+      <span class="section-subtitle" data-anim="fade-up">About the Artist</span>
       <div class="about-grid">
         <div class="about-text">
-          <h2>A Life in Art</h2>
-          <p>With a passion for capturing the beauty found in everyday objects and the human form, my work spans still life painting, portraiture, and exquisite miniatures. Each piece is crafted with meticulous attention to detail and a deep respect for classical techniques passed down through generations.</p>
-          <p>Working from my studio, I combine traditional methods with a contemporary eye — seeking to create works that feel both timeless and alive. Whether painting the quiet drama of a still life arrangement or the subtle character of a portrait, I strive to invite the viewer into a moment of stillness and contemplation.</p>
+          <h2 class="reveal-text" data-anim="reveal-text">A Life in Art</h2>
+          <p data-anim="fade-up">With a passion for capturing the beauty found in everyday objects and the human form, my work spans still life painting, portraiture, and exquisite miniatures. Each piece is crafted with meticulous attention to detail and a deep respect for classical techniques passed down through generations.</p>
+          <p data-anim="fade-up">Working from my studio, I combine traditional methods with a contemporary eye — seeking to create works that feel both timeless and alive. Whether painting the quiet drama of a still life arrangement or the subtle character of a portrait, I strive to invite the viewer into a moment of stillness and contemplation.</p>
         </div>
-        <div class="about-image">
+        <div class="about-image" data-anim="fade-scale">
           <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=800&fit=crop" alt="Artist at work" loading="lazy">
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Brushstroke divider -->
+  <div class="brush-divider">
+    <svg viewBox="0 0 1200 30" preserveAspectRatio="none">
+      <path class="brush-path" d="M0,15 C100,5 200,25 300,12 C400,0 500,28 600,15 C700,2 800,25 900,12 C1000,0 1100,20 1200,15" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+    </svg>
+  </div>
+
   <!-- 3. Workshops -->
-  <section class="animate-section" id="workshops">
+  <section id="workshops">
     <div class="container">
-      <span class="section-subtitle">Learn &amp; Create</span>
+      <svg class="brushstroke section-brush section-brush-left" viewBox="0 0 200 400" preserveAspectRatio="none">
+        <path class="brush-path" d="M100,0 C80,60 130,110 90,170 C50,230 140,270 100,330 C60,370 120,390 100,400" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.12"/>
+      </svg>
+
+      <span class="section-subtitle" data-anim="fade-up">Learn &amp; Create</span>
       <div class="workshops-content">
-        <h2>Art Workshops</h2>
-        <p>Join me for intimate, hands-on workshops designed for all skill levels. Whether you're picking up a brush for the first time or looking to refine your technique, these sessions offer personalised guidance in a relaxed, inspiring environment.</p>
-        <p>From the fundamentals of colour mixing and composition to advanced glazing techniques, each workshop is tailored to help you develop confidence and discover your own artistic voice.</p>
+        <h2 class="reveal-text" data-anim="reveal-text">Art Workshops</h2>
+        <p data-anim="fade-up">Join me for intimate, hands-on workshops designed for all skill levels. Whether you're picking up a brush for the first time or looking to refine your technique, these sessions offer personalised guidance in a relaxed, inspiring environment.</p>
+        <p data-anim="fade-up">From the fundamentals of colour mixing and composition to advanced glazing techniques, each workshop is tailored to help you develop confidence and discover your own artistic voice.</p>
       </div>
       <div class="workshop-features">
-        <div class="workshop-feature">
+        <div class="workshop-feature" data-anim="fade-up-stagger">
           <h4>Still Life</h4>
           <p>Master the art of observation. Learn to see and render light, shadow, and form using classical still life setups.</p>
         </div>
-        <div class="workshop-feature">
+        <div class="workshop-feature" data-anim="fade-up-stagger">
           <h4>Portraiture</h4>
           <p>Explore the techniques behind capturing likeness and character, from initial sketch to finished painting.</p>
         </div>
-        <div class="workshop-feature">
+        <div class="workshop-feature" data-anim="fade-up-stagger">
           <h4>Miniatures</h4>
           <p>Discover the precision and patience of miniature painting — working small to create something extraordinary.</p>
         </div>
@@ -108,27 +136,34 @@
     </div>
   </section>
 
+  <!-- Brushstroke divider -->
+  <div class="brush-divider">
+    <svg viewBox="0 0 1200 30" preserveAspectRatio="none">
+      <path class="brush-path" d="M0,18 C80,5 180,28 280,10 C380,-2 480,25 580,15 C680,5 780,28 880,10 C980,-2 1080,22 1200,12" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+    </svg>
+  </div>
+
   <!-- 4. Gallery Preview -->
-  <section class="animate-section" id="gallery">
+  <section id="gallery">
     <div class="container">
-      <span class="section-subtitle">Selected Works</span>
-      <h2>Gallery</h2>
+      <span class="section-subtitle" data-anim="fade-up">Selected Works</span>
+      <h2 class="reveal-text" data-anim="reveal-text">Gallery</h2>
       <div class="gallery-preview-grid">
-        <a href="gallery/#still-life" class="gallery-preview-card">
+        <a href="gallery/#still-life" class="gallery-preview-card" data-anim="fade-up-stagger">
           <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500&h=625&fit=crop" alt="Still Life collection" loading="lazy">
           <div class="card-overlay">
             <h3>Still Life</h3>
             <span>View Collection</span>
           </div>
         </a>
-        <a href="gallery/#portraits" class="gallery-preview-card">
+        <a href="gallery/#portraits" class="gallery-preview-card" data-anim="fade-up-stagger">
           <img src="https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=500&h=625&fit=crop" alt="Portraits collection" loading="lazy">
           <div class="card-overlay">
             <h3>Portraits</h3>
             <span>View Collection</span>
           </div>
         </a>
-        <a href="gallery/#miniatures" class="gallery-preview-card">
+        <a href="gallery/#miniatures" class="gallery-preview-card" data-anim="fade-up-stagger">
           <img src="https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=500&h=625&fit=crop" alt="Miniatures collection" loading="lazy">
           <div class="card-overlay">
             <h3>Miniatures</h3>
@@ -139,38 +174,60 @@
     </div>
   </section>
 
+  <!-- Brushstroke divider -->
+  <div class="brush-divider">
+    <svg viewBox="0 0 1200 30" preserveAspectRatio="none">
+      <path class="brush-path" d="M0,10 C120,25 200,5 320,18 C440,28 520,2 640,15 C760,28 840,5 960,18 C1080,28 1150,8 1200,15" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+    </svg>
+  </div>
+
   <!-- 5. Atelier Mulliner -->
-  <section class="animate-section atelier" id="atelier">
+  <section class="atelier" id="atelier">
     <div class="container">
-      <span class="section-subtitle">Coming Soon</span>
-      <h2>Atelier Mulliner</h2>
-      <p class="atelier-domain">ateliermulliner.com</p>
-      <p class="atelier-note">A dedicated space for teaching, commissions, and the atelier experience.<br>Currently in development.</p>
+      <!-- Decorative brushstrokes framing the domain -->
+      <svg class="brushstroke atelier-brush-left" viewBox="0 0 120 200" preserveAspectRatio="none">
+        <path class="brush-path" d="M110,0 C90,30 100,60 80,90 C60,120 90,150 70,180 C60,195 65,200 60,200" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+      </svg>
+      <svg class="brushstroke atelier-brush-right" viewBox="0 0 120 200" preserveAspectRatio="none">
+        <path class="brush-path" d="M10,0 C30,30 20,60 40,90 C60,120 30,150 50,180 C60,195 55,200 60,200" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+      </svg>
+
+      <span class="section-subtitle" data-anim="fade-up">Coming Soon</span>
+      <h2 class="reveal-text" data-anim="reveal-text">Atelier Mulliner</h2>
+      <p class="atelier-domain" data-anim="fade-up">ateliermulliner.com</p>
+      <p class="atelier-note" data-anim="fade-up">A dedicated space for teaching, commissions, and the atelier experience.<br>Currently in development.</p>
     </div>
   </section>
 
+  <!-- Brushstroke divider -->
+  <div class="brush-divider">
+    <svg viewBox="0 0 1200 30" preserveAspectRatio="none">
+      <path class="brush-path" d="M0,15 C150,2 250,28 400,12 C550,-2 650,25 800,15 C950,5 1050,25 1200,10" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+    </svg>
+  </div>
+
   <!-- 6. Contact -->
-  <section class="animate-section" id="contact">
+  <section id="contact">
     <div class="container">
-      <span class="section-subtitle">Get in Touch</span>
-      <h2>Contact</h2>
+      <span class="section-subtitle" data-anim="fade-up">Get in Touch</span>
+      <h2 class="reveal-text" data-anim="reveal-text">Contact</h2>
       <div class="contact-grid">
         <form class="contact-form" id="contactForm">
-          <div class="form-group">
+          <div class="form-group" data-anim="fade-up-stagger">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-anim="fade-up-stagger">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-anim="fade-up-stagger">
             <label for="message">Message</label>
             <textarea id="message" name="message" required></textarea>
           </div>
-          <button type="submit" class="btn-submit">Send Message</button>
+          <button type="submit" class="btn-submit" data-anim="fade-up-stagger">Send Message</button>
         </form>
-        <div class="contact-info">
+        <div class="contact-info" data-anim="fade-up">
           <h3>Let's Talk</h3>
           <p>Whether you're interested in commissioning a piece, attending a workshop, or simply want to say hello — I'd love to hear from you.</p>
           <p>I typically respond within a few days.</p>

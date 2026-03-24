@@ -97,6 +97,7 @@ p {
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: var(--space-sm);
+  display: inline-block;
 }
 
 /* --- Layout --- */
@@ -104,11 +105,13 @@ p {
   width: 90%;
   max-width: var(--max-width);
   margin: 0 auto;
+  position: relative;
 }
 
 section {
   padding: var(--space-2xl) 0;
   position: relative;
+  overflow: hidden;
 }
 
 /* --- Navigation --- */
@@ -234,7 +237,87 @@ section {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* --- Hero Section --- */
+/* ============================================
+   BRUSHSTROKE SVG DECORATIONS
+   ============================================ */
+.brushstroke {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.brush-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Hero brushstrokes */
+.hero-brush-1 {
+  width: 35%;
+  max-width: 400px;
+  top: 25%;
+  left: -5%;
+  opacity: 0.5;
+}
+
+.hero-brush-2 {
+  width: 25%;
+  max-width: 300px;
+  bottom: 20%;
+  right: -3%;
+  opacity: 0.3;
+}
+
+/* Section side brushstrokes */
+.section-brush {
+  width: 120px;
+  height: 300px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.section-brush-right {
+  right: -20px;
+}
+
+.section-brush-left {
+  left: -20px;
+}
+
+/* Atelier brushstrokes */
+.atelier-brush-left {
+  width: 80px;
+  height: 200px;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+.atelier-brush-right {
+  width: 80px;
+  height: 200px;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+}
+
+/* Horizontal brush dividers between sections */
+.brush-divider {
+  width: 100%;
+  padding: 0 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.brush-divider svg {
+  width: 100%;
+  height: 30px;
+  display: block;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -243,6 +326,7 @@ section {
   justify-content: center;
   text-align: center;
   padding-top: var(--nav-height);
+  position: relative;
 }
 
 .hero-monogram {
@@ -253,6 +337,7 @@ section {
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-md);
+  opacity: 0;
 }
 
 .hero-monogram span {
@@ -264,6 +349,14 @@ section {
 
 .hero h1 {
   margin-bottom: var(--space-sm);
+  overflow: hidden;
+}
+
+/* Split text: each character wrapped in a span */
+.hero h1 .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
 }
 
 .hero-tagline {
@@ -272,6 +365,7 @@ section {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-secondary);
+  opacity: 0;
 }
 
 .hero-tagline .divider {
@@ -281,9 +375,64 @@ section {
   background: var(--accent);
   vertical-align: middle;
   margin: 0 1rem;
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
-/* --- About Section --- */
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+}
+
+.scroll-indicator span {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+}
+
+/* ============================================
+   REVEAL TEXT — clip mask animation
+   ============================================ */
+.reveal-text {
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+}
+
+.reveal-text .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.05em;
+}
+
+.reveal-text .word-inner {
+  display: inline-block;
+  transform: translateY(105%);
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -301,13 +450,17 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.15);
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .about-text p {
   margin-bottom: var(--space-sm);
 }
 
-/* --- Workshops Section --- */
+/* ============================================
+   WORKSHOPS SECTION
+   ============================================ */
 .workshops-content {
   max-width: 800px;
 }
@@ -327,11 +480,12 @@ section {
   padding: var(--space-md);
   border: 1px solid var(--border-subtle);
   border-radius: 2px;
-  transition: border-color var(--transition-smooth);
+  transition: border-color var(--transition-smooth), transform var(--transition-smooth);
 }
 
 .workshop-feature:hover {
   border-color: var(--accent);
+  transform: translateY(-4px);
 }
 
 .workshop-feature h4 {
@@ -345,7 +499,9 @@ section {
   font-size: 0.9rem;
 }
 
-/* --- Gallery Preview Section (Homepage) --- */
+/* ============================================
+   GALLERY PREVIEW (Homepage)
+   ============================================ */
 .gallery-preview-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -365,11 +521,11 @@ section {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
-  transition: transform var(--transition-smooth);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .gallery-preview-card:hover img {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .gallery-preview-card .card-overlay {
@@ -394,7 +550,9 @@ section {
   text-transform: uppercase;
 }
 
-/* --- Gallery Page --- */
+/* ============================================
+   GALLERY PAGE
+   ============================================ */
 .gallery-page {
   padding-top: calc(var(--nav-height) + var(--space-lg));
 }
@@ -443,7 +601,6 @@ section {
   transform: scale(1.03);
 }
 
-/* Sold banner */
 .sold-banner {
   position: absolute;
   bottom: 16px;
@@ -495,7 +652,9 @@ section {
   font-weight: 500;
 }
 
-/* --- Lightbox --- */
+/* ============================================
+   LIGHTBOX
+   ============================================ */
 .lightbox {
   position: fixed;
   top: 0;
@@ -576,15 +735,12 @@ section {
   color: var(--text-primary);
 }
 
-.lightbox-prev {
-  left: -60px;
-}
+.lightbox-prev { left: -60px; }
+.lightbox-next { right: -60px; }
 
-.lightbox-next {
-  right: -60px;
-}
-
-/* --- Atelier Section --- */
+/* ============================================
+   ATELIER SECTION
+   ============================================ */
 .atelier {
   text-align: center;
 }
@@ -603,7 +759,9 @@ section {
   font-style: italic;
 }
 
-/* --- Contact Section --- */
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -674,7 +832,9 @@ section {
   margin-bottom: var(--space-sm);
 }
 
-/* --- Footer --- */
+/* ============================================
+   FOOTER
+   ============================================ */
 .footer {
   padding: var(--space-lg) 0;
   text-align: center;
@@ -687,13 +847,9 @@ section {
   margin: 0 auto;
 }
 
-/* --- Scroll Animation Base States --- */
-.animate-section {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-/* --- Mobile Nav Overlay --- */
+/* ============================================
+   MOBILE NAV OVERLAY
+   ============================================ */
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -733,7 +889,9 @@ section {
   color: var(--text-secondary);
 }
 
-/* --- Responsive --- */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 900px) {
   .nav-links {
     display: none;
@@ -767,12 +925,13 @@ section {
     grid-template-columns: 1fr;
   }
 
-  .lightbox-prev {
-    left: 10px;
-  }
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
 
-  .lightbox-next {
-    right: 10px;
+  .section-brush,
+  .atelier-brush-left,
+  .atelier-brush-right {
+    display: none;
   }
 }
 
@@ -801,5 +960,10 @@ section {
 
   .artwork-title-row h4 {
     font-size: 0.95rem;
+  }
+
+  .hero-brush-1,
+  .hero-brush-2 {
+    display: none;
   }
 }
