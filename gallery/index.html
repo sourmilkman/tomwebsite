@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Tom Mulliner</title>
+  <meta name="description" content="Browse the gallery of original artworks by Tom Mulliner — still life, portraits, and miniatures.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="../" class="nav-logo">Tom Mulliner</a>
+    <ul class="nav-links">
+      <li><a href="../">Home</a></li>
+      <li><a href="../#about">About</a></li>
+      <li><a href="../#workshops">Workshops</a></li>
+      <li class="nav-dropdown">
+        <a href="#still-life" class="active">Gallery</a>
+        <div class="nav-dropdown-menu">
+          <a href="#still-life">Still Life</a>
+          <a href="#portraits">Portraits</a>
+          <a href="#miniatures">Miniatures</a>
+        </div>
+      </li>
+      <li><a href="../#atelier">Atelier Mulliner</a></li>
+      <li><a href="../#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../">Home</a>
+    <a href="../#about">About</a>
+    <a href="../#workshops">Workshops</a>
+    <a href="#still-life">Gallery</a>
+    <a href="#still-life" class="mobile-sub">Still Life</a>
+    <a href="#portraits" class="mobile-sub">Portraits</a>
+    <a href="#miniatures" class="mobile-sub">Miniatures</a>
+    <a href="../#atelier">Atelier Mulliner</a>
+    <a href="../#contact">Contact</a>
+  </div>
+
+  <!-- Gallery Page Content -->
+  <main class="gallery-page">
+    <div class="container">
+      <span class="section-subtitle">Original Works</span>
+      <h1>Gallery</h1>
+
+      <!-- Still Life -->
+      <section class="gallery-category" id="still-life">
+        <h2>Still Life</h2>
+        <div class="gallery-grid" id="grid-still-life"></div>
+      </section>
+
+      <!-- Portraits -->
+      <section class="gallery-category" id="portraits">
+        <h2>Portraits</h2>
+        <div class="gallery-grid" id="grid-portraits"></div>
+      </section>
+
+      <!-- Miniatures -->
+      <section class="gallery-category" id="miniatures">
+        <h2>Miniatures</h2>
+        <div class="gallery-grid" id="grid-miniatures"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+      <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Previous">&#8249;</button>
+      <img src="" alt="" id="lightboxImg">
+      <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Next">&#8250;</button>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Tom Mulliner 2026</p>
+    </div>
+  </footer>
+
+  <!-- PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- Gallery JS -->
+  <script src="gallery.js"></script>
+</body>
+</html>

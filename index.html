@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tom Mulliner — Fine Art &amp; Graphic Design</title>
+  <meta name="description" content="Tom Mulliner — Fine artist and graphic designer specialising in still life, portraits, and miniatures.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav-logo">Tom Mulliner</a>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#workshops">Workshops</a></li>
+      <li class="nav-dropdown">
+        <a href="#gallery">Gallery</a>
+        <div class="nav-dropdown-menu">
+          <a href="gallery/#still-life">Still Life</a>
+          <a href="gallery/#portraits">Portraits</a>
+          <a href="gallery/#miniatures">Miniatures</a>
+        </div>
+      </li>
+      <li><a href="#atelier">Atelier Mulliner</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#workshops">Workshops</a>
+    <a href="#gallery">Gallery</a>
+    <a href="gallery/#still-life" class="mobile-sub">Still Life</a>
+    <a href="gallery/#portraits" class="mobile-sub">Portraits</a>
+    <a href="gallery/#miniatures" class="mobile-sub">Miniatures</a>
+    <a href="#atelier">Atelier Mulliner</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- 1. Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-monogram">
+      <span>M</span>
+    </div>
+    <h1>Tom Mulliner</h1>
+    <p class="hero-tagline">
+      Fine Art <span class="divider"></span> Graphic Design
+    </p>
+  </section>
+
+  <!-- 2. About Me -->
+  <section class="animate-section" id="about">
+    <div class="container">
+      <span class="section-subtitle">About the Artist</span>
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>A Life in Art</h2>
+          <p>With a passion for capturing the beauty found in everyday objects and the human form, my work spans still life painting, portraiture, and exquisite miniatures. Each piece is crafted with meticulous attention to detail and a deep respect for classical techniques passed down through generations.</p>
+          <p>Working from my studio, I combine traditional methods with a contemporary eye — seeking to create works that feel both timeless and alive. Whether painting the quiet drama of a still life arrangement or the subtle character of a portrait, I strive to invite the viewer into a moment of stillness and contemplation.</p>
+        </div>
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=800&fit=crop" alt="Artist at work" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Workshops -->
+  <section class="animate-section" id="workshops">
+    <div class="container">
+      <span class="section-subtitle">Learn &amp; Create</span>
+      <div class="workshops-content">
+        <h2>Art Workshops</h2>
+        <p>Join me for intimate, hands-on workshops designed for all skill levels. Whether you're picking up a brush for the first time or looking to refine your technique, these sessions offer personalised guidance in a relaxed, inspiring environment.</p>
+        <p>From the fundamentals of colour mixing and composition to advanced glazing techniques, each workshop is tailored to help you develop confidence and discover your own artistic voice.</p>
+      </div>
+      <div class="workshop-features">
+        <div class="workshop-feature">
+          <h4>Still Life</h4>
+          <p>Master the art of observation. Learn to see and render light, shadow, and form using classical still life setups.</p>
+        </div>
+        <div class="workshop-feature">
+          <h4>Portraiture</h4>
+          <p>Explore the techniques behind capturing likeness and character, from initial sketch to finished painting.</p>
+        </div>
+        <div class="workshop-feature">
+          <h4>Miniatures</h4>
+          <p>Discover the precision and patience of miniature painting — working small to create something extraordinary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Gallery Preview -->
+  <section class="animate-section" id="gallery">
+    <div class="container">
+      <span class="section-subtitle">Selected Works</span>
+      <h2>Gallery</h2>
+      <div class="gallery-preview-grid">
+        <a href="gallery/#still-life" class="gallery-preview-card">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500&h=625&fit=crop" alt="Still Life collection" loading="lazy">
+          <div class="card-overlay">
+            <h3>Still Life</h3>
+            <span>View Collection</span>
+          </div>
+        </a>
+        <a href="gallery/#portraits" class="gallery-preview-card">
+          <img src="https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=500&h=625&fit=crop" alt="Portraits collection" loading="lazy">
+          <div class="card-overlay">
+            <h3>Portraits</h3>
+            <span>View Collection</span>
+          </div>
+        </a>
+        <a href="gallery/#miniatures" class="gallery-preview-card">
+          <img src="https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=500&h=625&fit=crop" alt="Miniatures collection" loading="lazy">
+          <div class="card-overlay">
+            <h3>Miniatures</h3>
+            <span>View Collection</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Atelier Mulliner -->
+  <section class="animate-section atelier" id="atelier">
+    <div class="container">
+      <span class="section-subtitle">Coming Soon</span>
+      <h2>Atelier Mulliner</h2>
+      <p class="atelier-domain">ateliermulliner.com</p>
+      <p class="atelier-note">A dedicated space for teaching, commissions, and the atelier experience.<br>Currently in development.</p>
+    </div>
+  </section>
+
+  <!-- 6. Contact -->
+  <section class="animate-section" id="contact">
+    <div class="container">
+      <span class="section-subtitle">Get in Touch</span>
+      <h2>Contact</h2>
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+        <div class="contact-info">
+          <h3>Let's Talk</h3>
+          <p>Whether you're interested in commissioning a piece, attending a workshop, or simply want to say hello — I'd love to hear from you.</p>
+          <p>I typically respond within a few days.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Tom Mulliner 2026</p>
+    </div>
+  </footer>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Main JS -->
+  <script src="js/main.js"></script>
+</body>
+</html>
